@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int weight,num;
+    cin>>weight>>num;
+    int val[num],weights[num];
+    for(int i=0;i<num;i++){
+        cin>>weights[i];
+    }
+        for(int i=0;i<num;i++){
+        cin>>val[i];
+    }
+    int dp[num+1][weight+1];
+    for(int i=0;i<weight+1;i++)dp[0][i]=0;
+    
+    for(int i=0;i<num+1;i++)dp[i][0]=0;
+    
+    for(int i=1;i<num+1;i++){
+        for(int j=1;j<=weight;j++){
+            if(weights[i-1]>j)dp[i][j]=dp[i-1][j];
+            else{
+                dp[i][j]=max(dp[i-1][j],dp[i-1][j-weights[i-1]]+val[i-1]);
+            }
+        }
+    }
+    for(int i=1;i<num+1;i++){
+        for(int j=1;j<=weight;j++){
+            cout<<dp[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<dp[num][weight]<<endl;
+	return 0;
+}
