@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node {
+    bool end_string;
+    struct node *next_char[26];
+    int count[26];
+};
+void insert(struct node *head,string str){
+    int x=str.length();
+    for(int i=0;i<x;i++){
+        if(head->next_char[str[i]-'a'] == NULL){
+            struct node* n;
+            n = new struct node;
+            for(int j=0;j<26;j++){
+                n->next_char[j]=NULL;
+            }
+            n->end_string=0;
+            head->next_char[str[i]-'a'] = n;
+            head=n;
+        }else head=head->next_char[str[i]-'a'];
+    }
+    head->end_string =1;
+}
+int check(struct node* head ,string str){
+    int x =str.length();
+    for(int i=0;i<x;i++){
+        if(head->next_char[str[i]-'a'] == NULL)return 0;
+        else{
+           head= head->next_char[str[i]-'a'];
+        }
+    }
+    if(head->end_string ==1 ) return 1;
+    return 0;
+}
+int main(){
+    int n;
+    cin >> n;
+    struct node *head;
+    head = new struct node;
+    for(int i=0;i<26;i++){
+        head->next_char[i]=NULL;
+        head->count[i]=0;
+    }    
+    head->end_string = 0;
+    for(int a0 = 0; a0 < n; a0++){
+        string op;
+        string contact;
+        cin >> op >> contact;
+        if(op == "add"){
+            insert(head,contact);
+        }
+        else{
+            cout<<check(head,contact)<<endl;
+        }
+    }
+    return 0;
+}
