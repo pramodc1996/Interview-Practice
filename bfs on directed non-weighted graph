@@ -3,19 +3,20 @@ using namespace std;
 typedef long long int ll ;
 int main()
  {
-	int t,n;
+	int t,n,m;
 	cin>>t;
 	while(t--){
-	    cin>>n;
+	    cin>>n>>m;
 	    vector<vector<int> > g(n+1);
+	    int u,v;
 	    for(int i=1;i<n+1;i++){
-	        if(i+1<=n)g[i].push_back(i+1);
-	        if(3*i<=n)g[i].push_back(3*i);
+	        cin>>u>>v;
+	         g[u].push_back(v);
 	    }
 	     bool visited[n+1];
 	     memset(visited,0,sizeof(visited));
 	     int count=0;
-	     visited[1]=0;
+	     visited[1]=1;
 	     queue<int> q;
 	     q.push(1);
 	     //int end=1;
@@ -25,7 +26,7 @@ int main()
 	         int flag=0;
 	         while(x--){
 	         int s = q.front();
-	        // cout<<s<<" ";
+	         cout<<s<<" ";
 	         q.pop();
 	         if(s==n){flag=1;break;}
 	        for(it = g[s].begin();it!=g[s].end();it++){
