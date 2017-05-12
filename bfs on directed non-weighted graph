@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll ;
+int main()
+ {
+	int t,n;
+	cin>>t;
+	while(t--){
+	    cin>>n;
+	    vector<vector<int> > g(n+1);
+	    for(int i=1;i<n+1;i++){
+	        if(i+1<=n)g[i].push_back(i+1);
+	        if(3*i<=n)g[i].push_back(3*i);
+	    }
+	     bool visited[n+1];
+	     memset(visited,0,sizeof(visited));
+	     int count=0;
+	     visited[1]=0;
+	     queue<int> q;
+	     q.push(1);
+	     //int end=1;
+	     vector<int>::iterator it;
+	     while(!q.empty()){
+	         int x = q.size();
+	         int flag=0;
+	         while(x--){
+	         int s = q.front();
+	        // cout<<s<<" ";
+	         q.pop();
+	         if(s==n){flag=1;break;}
+	        for(it = g[s].begin();it!=g[s].end();it++){
+	            if(!visited[*it]){
+	                visited[*it]=1;
+	                q.push(*it);
+	            }
+	        }
+	       }
+	       if(flag==1)break;
+	       count++;
+	       
+	     }
+	     cout<<count<<endl;
+	}
+	return 0;
+}
