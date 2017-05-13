@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    int sum;
+    cin>>sum;
+    int dp[sum+1];
+    
+    memset(dp,0,sizeof(dp));
+    dp[0]=1;
+    for(int i=0;i<n;i++){
+        int x = sum;
+        while(x-a[i]>=0){
+            if(dp[x-a[i]]){dp[x]+=dp[x-a[i]];}
+            x--;
+        }
+    } 
+    cout<<dp[sum]<<endl;
+	return 0;
+}
