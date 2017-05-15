@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    string ms;
+    cin>>ms;
+    int x = ms.length();
+    int dp[x][x];
+     for(int i=0;i<x;i++){
+        for(int j=0;j<x;j++){
+            dp[i][j]=0;
+        }
+    }
+    for(int i=0;i<x;i++){
+        dp[i][i]=1;
+    }
+    for(int l=2;l<=x;l++){
+        for(int i=0;i+l<=x;i++){
+            if(ms[i]==ms[i+l-1]){
+                dp[i][i+l-1]=2+dp[i+1][i+l-2];
+            }
+            else{
+                dp[i][i+l-1]=max(dp[i][i+l-2],dp[i+1][i+l-1]);
+            }
+        }
+    }
+     
+    int ex=0,ey=x-1;
+    string ans="";
+    while(dp[ex][ey]!=0 && dp[ex][ey]!=1 ){
+        if(dp[ex][ey] == dp[ex][ey-1])ey--;
+        else if(dp[ex][ey] == dp[ex+1][ey])ex++;
+        else {ans+=ms[ex];ex++;ey--;}
+    }
+     string half;
+     half = ans;
+     reverse(ans.begin(),ans.end())  ; 
+    if(dp[ex][ey]==1){
+       
+        half+=ms[ex];
+    }
+     half = half + ans;
+    
+    cout<<half<<endl;    //palindromic subsequence  
+    for(int i=0;i<x;i++){
+        for(int j=0;j<x;j++){
+            cout<<dp[i][j]<<" ";
+        }cout<<endl;
+    }
+    cout<<dp[0][x-1]<<endl;
+    return 0;
+}
