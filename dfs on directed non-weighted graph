@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin>>n;
+    vector<vector<int> > g(n+1);
+    int e;
+    cin>>e;
+    int u,v;
+    for(int i=0;i<e;i++){
+        cin>>u>>v;
+        g[u].push_back(v);
+    }
+    vector<bool> visited(n+1,0);
+    queue<int> ms;
+    ms.push(1);
+    visited[1] = 1;
+    while(!ms.empty()){
+        int s = ms.front();
+        ms.pop();
+        cout<<s<<" ";
+        vector<int>::iterator it;
+        for(it=g[s].begin();it!=g[s].end();it++){
+            if(!visited[*it]){
+                ms.push(*it);
+                visited[*it]=1;
+            }
+        }
+    }
+    return 0;
+}
