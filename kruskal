@@ -1,11 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 int root(int father[],int x){
-    while(father[x]!=x){
-        father[x] = father[father[x]];
-        x = father[x];
-    }
+   if(x==father[x])
     return x;
+    return root(father,father[x]);
 }
 int main() {
     int n,e;
