@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+int root(int father[],int x){
+    while(father[x]!=x){
+        father[x] = father[father[x]];
+        x = father[x];
+    }
+    return x;
+}
+int main() {
+    int n,e;
+    cin>>n>>e;
+    vector< pair <int , pair<int,int> > > g(e);
+    int wt,st,en;
+    for(int i=0;i<e;i++){
+        cin>>wt>>st>>en;
+        g[i] = (make_pair(wt,make_pair(st,en)));
+    }
+    int father[n+1];
+    for(int i=0;i<n+1;i++){
+        father[i]=i;
+    }
+    sort(g.begin(),g.end());
+    int cur_wt,cur_st,cur_en;
+    vector< pair<int , pair<int,int> > >::iterator it;
+    int cost = 0;
+    for(it=g.begin();it!=g.end();it++){
+        cur_wt = it->first;
+        cur_st = it->second.first;
+        cur_en = it->second.second;
+        int x = root(father,cur_st);
+        int y = root(father,cur_en);
+        if(x != y){
+            cout<<cur_st<<" "<<cur_en<<" "<<endl;
+            cost += cur_wt;
+            father[x] = father[y];
+        }  
+    }
+    cout<<cost<<endl;
+    return 0;
+}
