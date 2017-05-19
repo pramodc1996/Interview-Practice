@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>  //O(Elog(V)) Dijkstra alogrithm slight changes in prims algorithm 
+using namespace std;      //both use same priority queue for maintaing edges 
+typedef pair<int,int> pii; 
+typedef long long int ll;
+int main() {
+    int n,e;
+    cin>>n>>e;
+    ll a[n][n];
+    int path[n][n];
+    for(int i=0;i<n;i++)
+        for(int j=0;j<n;j++)
+          { if(i!=j)
+           a[i][j]=INT_MAX;
+           else a[i][j]=0;
+           path[i][j]=-1;
+          }
+    int st,en,wt;
+    for(int i=0;i<e;i++){
+        cin>>st>>en>>wt;
+        a[st][en]=wt;
+        path[st][en]= st;
+    }
+    
+    for(int k=0;k<n;k++){                 //k from 0 to n-1 intermediate vertices 
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(a[i][j] > a[i][k] + a[k][j]){
+                    a[i][j] = a[i][k] + a[k][j];
+                    path[i][j] = path[k][j];
+                }
+            }
+        }
+    }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cout<<a[i][j]<<" ";
+        }cout<<endl;
+    }
+    
+    cout<<endl;
+    
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cout<<path[i][j]<<" ";
+        }cout<<endl;
+    }
+    
+    //if i want path from one to another vertex
+    int s,d;
+    cin>>s>>d;
+    cout<<d;
+    while(path[s][d] != s){         
+        cout<<"<--"<<path[s][d];
+        d = path[s][d];
+    }
+    cout<<"<--"<<s;
+    
+    return 0;
+}
