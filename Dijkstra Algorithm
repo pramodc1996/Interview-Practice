@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>  //O(Elog(V)) Dijkstra alogrithm slight changes in prims algorithm 
+using namespace std;      //both use same priority queue for maintaing edges 
+typedef pair<int,int> pii; 
+int main() {
+    int n,e;
+    cin>>n>>e;
+    vector<vector<pii> > g(n+1);
+    int wt,st,en;
+    for(int i=0;i<e;i++){
+        cin>>wt>>st>>en;
+        g[st].push_back(make_pair(wt,en));
+        g[en].push_back(make_pair(wt,st));
+    }
+    priority_queue<pii,vector<pii>,greater<pii> > pq;
+    int cost = 0;
+    vector<int> visited(n+1,0);
+     long long int dist[n+1];
+    for(int i=0;i<n+1;i++)dist[i]=INT_MAX;
+    int parent[n+1];
+    for(int i=0;i<n+1;i++)parent[i]=-1;
+    int source;
+    cin>>source;
+    pq.push(make_pair(0,source));
+    dist[source]=0;
+    pii p;
+    while(!pq.empty()){
+        p = pq.top();
+        pq.pop();
+        int x = p.second;
+        if(visited[x] == 1)continue;
+        visited[x] = 1;
+        int y;
+        vector<pii>::iterator it;
+        for(it=g[x].begin();it!=g[x].end();it++){
+            if(dist[(*it).second] > dist[x] + (*it).first){           //v > u + wt
+                dist[(*it).second] = dist[x] + (*it).first;
+                parent[(*it).second] = x;
+                if(visited[(*it).second]==0)                  //not visited push it in the queue
+                pq.push(make_pair(dist[(*it).second],(*it).second));
+            }
+        }
+    }
+    for(int i=1;i<n+1;i++)cout<<dist[i]<<" ";cout<<endl;
+    for(int i=1;i<n+1;i++)cout<<parent[i]<<" ";cout<<endl;
+    
+     int j;
+    for(int i=1;i<n+1;i++){                    //paths to all vertices from source
+        j=i;
+        if(parent[i]==-1 && i!=source) cout<<i<<" unreachable"; //vertex is unreachable
+        else{
+        cout<<i;
+       while(parent[j]!=-1){
+           cout<<"<--"<<parent[j];
+           j=parent[j];
+         } 
+        }
+       cout<<endl;
+    }
+    
+    return 0;
+}
