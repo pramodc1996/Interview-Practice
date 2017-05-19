@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>   //O(VE)  Bellman Ford Algorithm
+using namespace std;
+
+int main() {
+    int n,e;
+    cin>>n>>e;
+    int wt[e],st[e],en[e];
+    for(int i=0;i<e;i++){
+        cin>>st[i]>>en[i]>>wt[i];
+    }
+    long long int dist[e];   //took long long int bcoz INT_MAX + num will become a number which will always less
+    for(int i=0;i<e;i++)dist[i]=INT_MAX;  // so make dist array Long Long INT 
+    int source ;
+    cin>>source;
+    int parent[n];
+    for(int i=0;i<n;i++)parent[i]=-1;
+    dist[source]=0;
+    for(int j=0;j<n-1 ;j++){
+        for(int i=0;i<e;i++){
+        if( dist[en[i]] > dist[st[i]] + wt[i] ){
+            dist[en[i]] = dist[st[i]] + wt[i];
+            parent[en[i]] = st[i]; 
+        }
+        }
+    }
+    
+    int flag=0;
+    for(int i=0;i<e;i++){
+        if( dist[en[i]] > dist[st[i]] + wt[i] ){   //one more loop to check negative cycle
+           flag=1;break;
+        }
+        }
+        
+    if(flag==1) 
+     cout<<"negative cycle  exists " <<endl;
+    else{
+    
+    for(int i=0;i<n;i++)cout<<dist[i]<<" ";cout<<endl;  //minimum distance to all vertices stored in dist array
+    // path to each vertex
+    int j;
+    for(int i=0;i<n;i++){                    //paths to all vertices from source
+        j=i;
+        if(parent[i]==-1 && i!=source) cout<<i<<" unreachable"; //vertex is unreachable
+        else{
+        cout<<i;
+       while(parent[j]!=-1){
+           cout<<"<--"<<parent[j];
+           j=parent[j];
+         } 
+        }
+       cout<<endl;
+    }
+    }
+	return 0;
+}
