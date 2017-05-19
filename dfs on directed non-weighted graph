@@ -13,11 +13,11 @@ int main() {
         g[u].push_back(v);
     }
     vector<bool> visited(n+1,0);
-    queue<int> ms;
+    stack<int> ms;
     ms.push(1);
     visited[1] = 1;
     while(!ms.empty()){
-        int s = ms.front();
+        int s = ms.top();
         ms.pop();
         cout<<s<<" ";
         vector<int>::iterator it;
