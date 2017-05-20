@@ -30,7 +30,7 @@ int main()
             }
             else{
                 left = i;          //resize the box here
-                while(right >tot && txt[right] == txt[right-left]){
+                while(right < tot && txt[right] == txt[right-left]){
                     right++;
                 }
                 z[i] = right- left;       
@@ -40,6 +40,7 @@ int main()
     }
     int count = 0;
     for(int i=pl;i<tot;i++)if(z[i]==pl)count++;
+    for(int i=0;i<tot;i++)cout<<z[i]<<" ";cout<<endl;       //Z-values
     cout<<count;
     return 0;
 }
