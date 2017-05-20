@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    string pat,txt;
+    cin>>pat;
+    cin>>txt;
+    int pl = pat.length();
+    int tl = txt.length();
+    txt = pat + "$" +txt;       //combining two strings 
+    int tot = txt.length();     //n+m   total length of string ...
+    int z[tot];
+    fill(z,z+tot,0);
+    int left=0,right=0;
+    for(int i=1;i<tot;i++){
+        if(i>right){             //if i hase crossed the Z-Box the try incresing z-box size
+            left = right = i;
+            while( right<tot && txt[right] == txt[right-left]){
+                right++;
+            }
+            z[i]=right-left;
+            right--;
+        }
+        else{
+            int ib = i - left;     //comparing element in the box with the prefix
+            if(i + z[ib] <= right )  // not overcrossing the right boundry
+            {
+                z[i] = z[ib]; 
+            }
+            else{
+                left = i;          //resize the box here
+                while(right >tot && txt[right] == txt[right-left]){
+                    right++;
+                }
+                z[i] = right- left;       
+                right--;            //bcoz last character is unmatched so decrease it to last matched character
+            }
+        }
+    }
+    int count = 0;
+    for(int i=pl;i<tot;i++)if(z[i]==pl)count++;
+    cout<<count;
+    return 0;
+}
