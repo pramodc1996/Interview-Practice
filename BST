@@ -1,12 +1,12 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long int ll;
-struct node {
+struct node {                                        //defined struct 
     struct node* left ;
     struct node* right ;
     int data;
 };
-void inorder(struct node* root ){
+void inorder(struct node* root ){               //to check BST
     if(root){
         inorder(root->left);
         cout<<root->data<<" ";
@@ -14,7 +14,7 @@ void inorder(struct node* root ){
     }
 }
  node* add(struct node* root,int val){
-    if(root==NULL){
+    if(root==NULL){                                        //if leaf is null create node
       node* newnode = (node*)malloc(sizeof(node));
        newnode->left=NULL;
        newnode->right=NULL;
@@ -22,11 +22,11 @@ void inorder(struct node* root ){
        return newnode;
     }
     if (root->data >val){
-      root->left =  add(root->left,val);
+      root->left =  add(root->left,val);                         // insert it in left subtree
     }else{
-       root->right = add(root->right,val);
+       root->right = add(root->right,val);                             //insert in right subtree
     }
-    return root;
+    return root;                                                   //return root for each fu ction call recursively
 }
 int main(){
     int n;
@@ -35,8 +35,8 @@ int main(){
     struct node *root =NULL;
     for(int i=0;i<n;i++){ 
         cin>>val;
-        root = add(root,val);
+        root = add(root,val);                     // the add function finally will always return root 
     }
-    inorder(root);
+    inorder(root);                                 //to check for bst
     return 0;
 }
