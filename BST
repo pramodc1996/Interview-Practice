@@ -28,8 +28,8 @@ void inorder(struct node* root ){               //to check BST
     }
     return root;                                                   //return root for each fu ction call recursively
 }
-node* findmin(node* root){
-    while(root->left)root=root->left;
+node* findmin(node* root){     
+    while(root->left)root=root->left;                       //if the node has no left child then it is the minimum of that subtree 
     return root;
 }
 node* delete1(node* root,int val){
