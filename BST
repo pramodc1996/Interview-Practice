@@ -28,6 +28,38 @@ void inorder(struct node* root ){               //to check BST
     }
     return root;                                                   //return root for each fu ction call recursively
 }
+node* findmin(node* root){
+    while(root->left)root=root->left;
+    return root;
+}
+node* delete1(node* root,int val){
+    if(root==NULL)return NULL;
+    if(root->data > val)root->left = delete1(root->left,val);
+    else if (root->data < val)delete1(root->right,val);
+    else{
+        //node with root->data == val found
+        if(root->left==NULL && root->right==NULL) {     //leaf no child
+            root=NULL;
+           // delete root;  think??
+        }   
+        else if(root->left ==NULL){    //single child
+            node* temp = root;
+            root=root->right;
+            delete temp;
+        }else if (root->right==NULL){   //single child
+            node* temp = root;
+            root = root->left;
+            delete temp;
+        }
+        else {                           //both childs present
+            node* temp = findmin(root->right);           //find min in the roght subtree
+            root->data = temp->data;
+            root->right = delete1(root->right,temp->data);  // delete the duplicate min in the right subtre!! greate logic heree !!! 
+            delete temp;
+        }
+    }
+    return root;
+}
 int main(){
     int n;
     cin>>n;
@@ -37,6 +69,16 @@ int main(){
         cin>>val;
         root = add(root,val);                     // the add function finally will always return root 
     }
-    inorder(root);                                 //to check for bst
+    inorder(root); 
+    cout<<endl;
+    //to check for bst
+    int x,num;
+    cin>>x;
+    while(x--){
+        cin>>num;
+        root = delete1(root,num);
+        inorder(root);
+        cout<<endl;
+    }
     return 0;
 }
