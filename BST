@@ -35,7 +35,7 @@ node* findmin(node* root){
 node* delete1(node* root,int val){
     if(root==NULL)return NULL;
     if(root->data > val)root->left = delete1(root->left,val);
-    else if (root->data < val)delete1(root->right,val);
+    else if (root->data < val)root->right = delete1(root->right,val);
     else{
         //node with root->data == val found
         if(root->left==NULL && root->right==NULL) {     //leaf no child
