@@ -1,0 +1,42 @@
+//constant space unlike merge sort  i.e inplace algorithm
+// worst case O(n^2)
+
+#include<bits/stdc++.h>
+using namespace std;
+void swap(int& a,int& b){
+    int temp = a;
+    a=b;
+    b =temp;
+}
+int partition(int a[],int st,int en){          //core logic of quicksort partition ..!!!!!!
+    int pivot = en;                              //pivot is end element
+    int pindex = st;                           //initially pindex is st
+    for(int i=st;i<en;i++){
+        if(a[i] <= a[pivot]){
+            swap(a[i],a[pindex]);
+            pindex++;                          //elements to left pindex are always less than element  at a[pivot]..!!!1
+        }
+    }
+    swap(a[pivot],a[pindex]);
+    return pivot;                    //return pivot
+}
+void quicksort(int a[],int st,int en){
+    if(st<en){
+    int pos = partition(a,st,en);                //partition 
+    quicksort(a,st,pos-1);                       //divide it
+    quicksort(a,pos+1,en);
+    }
+}
+int main(){
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    quicksort(a,0,n-1);
+    for(int i=0;i<n;i++){
+        cout<<a[i]<<" ";
+    }
+    return 0;
+}
