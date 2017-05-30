@@ -1,3 +1,8 @@
+//stable sort
+//divide and conquer
+//not inplace i.e space complexity increases with increase in size of array
+//recursive
+
 #include<bits/stdc++.h>
 using namespace std;
 //typedef long long int ll;
