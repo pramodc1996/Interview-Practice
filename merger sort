@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+//typedef long long int ll;
+void merge(int l[],int r[],int a[],int ll,int rr){                    //merging the sorted array
+    //int ll = l.size();
+    //int rr = r.size();
+    int i=0,j=0,k=0;
+    while(i<ll && j<rr){                     
+        if(l[i]<=r[j]){
+            a[k]=l[i];
+            i++;
+            k++;
+        }
+        else{
+            a[k]=r[j];
+            j++;
+            k++;
+        }
+    }
+    while(i<ll){                      //copying the remaining part 
+        a[k]=l[i];i++;k++;
+    }
+    //only one of the above or below while loop will get executed
+    while(j<rr){
+        a[k]=r[j];j++;k++;
+    }
+}
+void mergesort(int a[],int x){
+    if(x<2)return;                                //if array is of size 1 then it is already sorted
+    int mid = x/2;
+    int l[mid];
+    int r[x-mid];
+    for(int i=0;i<mid;i++)                   //left array
+        l[i]=a[i];
+    
+    for(int i=0;i<x-mid;i++)             //riight array
+        r[i]=a[mid+i];
+    
+    mergesort(l,mid);                    //divide till array contains 1 element
+    mergesort(r,x-mid);
+    merge(l,r,a,mid,x-mid);              //merge the sorted array
+}
+int main(){
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    mergesort(a,n);
+    for(int i=0;i<n;i++){
+        cout<<a[i]<<" ";
+    }
+    return 0;
+}
