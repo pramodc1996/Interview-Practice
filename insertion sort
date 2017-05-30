@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main(){
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    for(int i=1;i<n;i++){
+        int cur = a[i];
+        int pos = i-1;
+        while(cur < a[pos]  && pos>=0 ){          //check while it is greater than an element in sorted part of i>=0
+            a[pos+1] = a[pos];
+            pos--;
+        }
+        a[pos+1] = cur;                   //inserting it 
+    }
+    for(int i=0;i<n;i++){
+        cout<<a[i]<<" ";
+    }
+    return 0;
+}
