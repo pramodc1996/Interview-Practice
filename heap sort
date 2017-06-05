@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+void swap(int &x ,int &y){
+int temp = x;
+ x=y;
+y=temp;
+    
+}
+
+void heapify(int a[],int n ,int ind){                    //heapify from the ind subtree
+    int l = 2*ind+1;
+    int r = 2 *ind+2;
+    int largest=ind;
+    if(l<n && a[l]>a[largest])
+      largest=l;
+    if(r<n && a[r]>a[largest])
+      largest=r;
+    if(largest!=ind){
+        swap(a[largest],a[ind]);
+        heapify(a,n,largest);            //heapify from the affected node
+    }
+}
+void heapsort(int a[],int n){
+    for(int i=n/2-1;i>=0;i--){
+        heapify(a,n,i);
+    }
+    for(int i=n-1;i>=0;i--){                      
+        swap(a[0],a[i]);                    //swap the 0th and i th node
+        heapify(a,i,0);               // decrease the size of tree each time after swapping
+    }
+}
+int main(){
+  int n;
+  cin>>n;
+  int a[n];
+  for(int i=0;i<n;i++)cin>>a[i];
+  heapsort(a,n);
+   for(int i=0;i<n;i++)cout<<a[i]<<" ";
+}     
