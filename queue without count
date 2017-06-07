@@ -7,8 +7,8 @@ class Queue {
   public :   
   int a[MAX];
   Queue(){  
-            front=-1;
-            rear=-1;
+            front=0;
+            rear=0;
             count=0;
   } 
   int isEmpty(){
@@ -18,13 +18,13 @@ class Queue {
   void push(int num){
       if((front==0 && rear==MAX-1) || (front-1 == rear)){cout<<"queue full"<<endl;return;}
      // count++;
-      a[++rear]=num; 
+      a[rear++]=num; 
       if(rear==MAX)rear=0;
   }
   int pop(){
         if(front==rear){ cout<<"queue empty"; return -1;}
       //  count--;
-        int num = a[++front];
+        int num = a[front++];
         if( front == MAX )front=0;  
         return num;
   }
@@ -34,10 +34,8 @@ int main(){
     q.push(30);
     q.push(20);
     q.push(10);
-    cout<<q.pop()<<endl;
     q.push(8);
     q.push(7);
-    cout<<q.pop()<<endl;
     q.push(6);
     q.push(16);
     q.push(165);
@@ -48,6 +46,17 @@ int main(){
     cout<<q.pop()<<endl;
     cout<<q.pop()<<endl;
     cout<<q.pop()<<endl;
+    q.push(6);
+    q.push(16);
+    q.push(165);
+    q.push(8);
+    q.push(7);
+    cout<<q.pop()<<endl;
+    cout<<q.pop()<<endl;
+    cout<<q.pop()<<endl;
+    cout<<q.pop()<<endl;
+    cout<<q.pop()<<endl;
+    
     return 0;
 }
 
