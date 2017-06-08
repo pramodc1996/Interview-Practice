@@ -1,0 +1,78 @@
+#include<bits/stdc++.h>
+using namespace std; 
+class Queue{
+    private:
+    struct Node{
+        int data;
+        struct Node* next;
+        struct Node* front;
+        struct Node*  rear;
+    };
+    struct Node* front = NULL;
+    struct Node* rear = NULL;
+    public:
+    void push(int x){
+        Node* temp = (Node*)malloc(sizeof(Node));
+        temp->data = x;
+        temp->next=NULL;
+        if(front==NULL){front=temp;rear=temp;}
+        else{
+          rear->next=temp;
+          rear=temp;
+        }
+         
+    }
+    void pop(){
+        if(front==NULL)return;
+        Node* temp = front;
+        if(front == rear){
+            front=NULL;
+            rear=NULL;
+            free(temp);
+            return;
+        }
+        front =temp->next;
+        free(temp);
+    }
+    int Front(){
+        if(front==NULL)return -1;
+        return front->data;
+    }
+    void print(){
+        if(front==NULL){cout<<"empty"<<endl;return;}
+        Node* temp = front;
+        while(temp!=NULL){
+            cout<<temp->data<<" ";
+            temp=temp->next;
+        }
+        cout<<endl;
+    }
+};
+int main(){
+   Queue q,q2;
+   q.push(5);
+   q.push(8);
+   q.push(10);
+   q.push(15);
+   q.pop();
+   q.print();
+   q2.push(55);
+   q2.push(1);
+   q2.push(22);
+   q2.pop();
+    q2.pop();
+     q2.pop();
+      q2.push(22); 
+      q2.pop();
+        q2.push(22);
+   q2.print();
+   
+   
+    return 0;
+}
+
+
+
+
+
+
