@@ -17,8 +17,8 @@ class Stack{
     void pop(){
         if(top == NULL )return ;
         Node* temp = top;
-        temp = temp->next;
-        top=temp;
+        top = temp->next;
+        free(temp);
     }
     int Top(){
         if(top==NULL)return -1;
