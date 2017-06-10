@@ -1,0 +1,100 @@
+#include<bits/stdc++.h>
+using namespace std; 
+class Queue{
+    private:
+    struct Node{
+        int data;
+        struct Node* next;
+        struct Node* prev;
+    };
+    struct Node* front = NULL;
+    struct Node* rear = NULL;
+    public:
+    void push_front(int x){
+        Node* p = (Node*)malloc(sizeof(Node));
+        p->data=x;
+        p->prev=NULL;
+        if(front==NULL){ front=p;rear=p;p->next=NULL;}
+        else{
+            front->prev=p;
+            p->next=front;
+            front=p;
+        }
+         
+    }
+    void pop_front(){
+        if(front==NULL){cout<<"empty"<<endl;return;}
+        Node* p = front;
+        if(front==rear){ front=NULL;rear=NULL; free(p); return;}
+        front=p->next;
+        front->prev=NULL;
+        free(p);
+    }
+    
+    void push_back(int x){
+        Node* p = (Node*)malloc(sizeof(Node));
+        p->data=x;
+        p->next=NULL;
+        if(front==NULL){ front=p;rear=p;p->prev=NULL;}
+        else{
+            rear->next=p;
+            p->prev = rear;
+            rear=p;
+        }
+         
+    }
+    
+     void pop_back(){
+        if(front==NULL){cout<<"empty"<<endl;return;}
+        Node* p = rear;
+        if(front==rear){ front=NULL;rear=NULL; free(p); return;}
+        rear=p->prev;
+        rear->next=NULL;
+        free(p);
+    }
+    
+    int Front(){
+        if(front==NULL)return -1;
+        return front->data;
+    }
+    int Back(){
+        if(front==NULL)return -1;
+        return rear->data;
+    }
+    void print(){
+        if(front==NULL){cout<<"empty"<<endl;return;}
+        Node* temp = front;
+        while(temp!=NULL){
+            cout<<temp->data<<" ";
+            temp=temp->next;
+        }
+        cout<<endl;
+    }
+};
+int main(){
+   Queue q,q2;
+   q.push_back(5);
+   q.push_front(8);
+   q.push_front(10);
+   q.push_back(15);
+   q.pop_front();
+   q.print();
+   q2.push_back(55);
+   q2.push_back(1);
+   q2.push_front(22);
+   q2.pop_front();
+     q2.pop_front();
+      q2.push_front(111); 
+      q2.pop_back();
+        q2.push_back(11);
+   q2.print();
+   
+   
+    return 0;
+}
+
+
+
+
+
+
