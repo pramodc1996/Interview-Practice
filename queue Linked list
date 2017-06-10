@@ -5,8 +5,6 @@ class Queue{
     struct Node{
         int data;
         struct Node* next;
-        struct Node* front;
-        struct Node*  rear;
     };
     struct Node* front = NULL;
     struct Node* rear = NULL;
