@@ -1,0 +1,18 @@
+#include<bits/stdc++.h>
+using namespace std;
+void honoi(int n,int st,int mid,int en,int &count){
+    if(n!=0)
+    honoi(n-1,st,en,mid,count);
+    cout<<"move from   "<<st<<" to "<<en<<" "<<endl;
+    count++;
+    honoi(n-1,mid,st,en,count); 
+    }
+}
+int main()
+{ 
+    int n;
+    cin>>n;
+    int ans = 0;
+    honoi(n,1,2,3,ans);
+    cout<<ans<<" ";
+}
