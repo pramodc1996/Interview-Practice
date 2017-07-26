@@ -1,0 +1,26 @@
+ #include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll ;
+int main()
+ {
+	int t;
+	cin>>t;
+	while(t--){
+	    int n;
+	    cin>>n;
+	    int a[n];
+	    for(int i=0;i<n;i++)cin>>a[i];
+	    for(int i=0;i<n;i++){
+	    }
+	    int ans = INT_MIN;
+	    int tans = 0;
+	    for(int i=0;i<n;i++){
+	        tans+=a[i];
+	        if(tans < 0){ ans = max(tans,ans);tans = 0; }
+	        else if(tans > ans)ans = tans;
+	    }
+	    
+	    cout<<ans<<endl;
+	}
+	return 0;
+}
