@@ -21,7 +21,7 @@ void inorder(struct node* root ){               //to check BST
        newnode->data=val;
       root=newnode;
     }
-    if (root->data >val){
+   else if (root->data >val){
       root->left =  add(root->left,val);                         // insert it in left subtree
     }else{
        root->right = add(root->right,val);                             //insert in right subtree
