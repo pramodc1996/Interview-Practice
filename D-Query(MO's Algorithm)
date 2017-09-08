@@ -21,43 +21,44 @@ int main() {
 	 }
 	 int q;
 	 cin>>q;
-	 pair< pair<int,int> , int > queries[q];
+	 pair< pair<int,int> , int > queries[q];       // could have used array of struct (containing {l , r , ind} )
+	         // l   r      ind
 	 for(int i=0;i<q;i++){
 	     scanf("%d%d",&queries[i].first.first,&queries[i].first.second);
 	     queries[i].second=i;
 	 }
-	 block_size = ceil(sqrt(n));
-	 sort(queries,queries+q,comp);
+	 block_size = ceil(sqrt(n));                     //define block size equal to square root of size
+	 sort(queries,queries+q,comp);                    //sort the queries  w.r.t to compt function
 	 int mo_left=0;
-	 int mo_right=-1;
-	 int answers[q];
-	 int count = 0;
+	 int mo_right=-1;                                     // initialize the  mo_left and mo_right
+	 int answers[q];                                  //to store the answer in order of input
+	 int count = 0;                                 // count of distinct numbers in the given range
 	 for(int i=0;i<q;i++){
-	     int ql = queries[i].first.first;
+	     int ql = queries[i].first.first;             
 	     int qr = queries[i].first.second;
 	     ql--;
 	     qr--;
-	     while(mo_right < qr){
-	          mo_right++;
+	     while(mo_right < qr){            //1st cond
+	          mo_right++;                                         
 	          cnt[a[mo_right]]++;
 	          if(cnt[a[mo_right]]==1)count++;
 	     }
-	     while(mo_right > qr){
+	     while(mo_right > qr){        //2nd cond
 	          cnt[a[mo_right]]--;
 	          if(cnt[a[mo_right]]==0)count--;
 	          mo_right--;
 	     }
-	     while(mo_left < ql){
+	     while(mo_left < ql){                //3rd cond
 	         cnt[a[mo_left]]--;
 	         if(cnt[a[mo_left]]==0)count--;
 	         mo_left++;
 	     }
-	     while(mo_left > ql){
+	     while(mo_left > ql){                //4th cond
 	         mo_left--;
 	         cnt[a[mo_left]]++;
 	         if(cnt[a[mo_left]]==1)count++; 
 	     }
-	     answers[queries[i].second]=count;
+	     answers[queries[i].second]=count;       //stor in the answers array to output in given order
 	 }
 	 for(int i=0;i<q;i++)
 	  printf("%d\n",answers[i]);
