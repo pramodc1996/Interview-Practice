@@ -3,7 +3,7 @@ using namespace std;
 struct node {
     bool end_string;
     struct node *next_char[26];
-    int count[26];
+    int count;
 };
 void insert(struct node *head,string str){
     int x=str.length();
@@ -14,6 +14,7 @@ void insert(struct node *head,string str){
             for(int j=0;j<26;j++){
                 n->next_char[j]=NULL;
             }
+            head->count++;
             n->end_string=0;
             head->next_char[str[i]-'a'] = n;
             head=n;
@@ -32,6 +33,24 @@ int check(struct node* head ,string str){
     if(head->end_string ==1 ) return 1;
     return 0;
 }
+bool del(struct node *head, string c, int ind){
+	if(ind == c.length()){
+		if(head->end_string==0)return 0;
+		head->end_string = 0;
+		return true;
+	}
+	if(head->next_char[c[ind]-'a']==NULL) return false;
+	 
+    bool cur_node = del(head->next_char[c[ind]-'a'],c,ind+1);	
+    
+    if(cur_node == true){
+    	if((head->next_char[c[ind]-'a'])->count==0){
+		head->next_char[c[ind]-'a']=NULL;
+    	head->count=head->count-1;
+       }
+       return true;
+	}else return false;
+}
 int main(){
     int n;
     cin >> n;
@@ -39,9 +58,10 @@ int main(){
     head = new struct node;
     for(int i=0;i<26;i++){
         head->next_char[i]=NULL;
-        head->count[i]=0;
+         
     }    
     head->end_string = 0;
+    head->count=0;
     for(int a0 = 0; a0 < n; a0++){
         string op;
         string contact;
@@ -49,8 +69,10 @@ int main(){
         if(op == "add"){
             insert(head,contact);
         }
-        else{
+        else if(op == "check"){
             cout<<check(head,contact)<<endl;
+        }else if(op == "del"){
+            cout<<del(head,contact,0)<<endl;
         }
     }
     return 0;
