@@ -46,7 +46,7 @@ bool del(struct node *head, string c, int ind){
     if(cur_node == true){
     	if((head->next_char[c[ind]-'a'])->count==0){
 		head->next_char[c[ind]-'a']=NULL;
-    	head->count=head->count-1;
+    	head->count--;
        }
        return true;
 	}else return false;
